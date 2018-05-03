@@ -17,3 +17,8 @@
     (if ((< args-len 2) -usage args-len)
         (-runfib (get-index args 0))))
 ```
+
+### Progress
+[+] Scanner
+[_] Parser
+[_] Evaluator
