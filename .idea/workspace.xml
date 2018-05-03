@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0072b773-4df8-4063-9dd4-c873590c7c83" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/pkg/scanner/scanner.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/scanner/scanner_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/token/token.go" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="scanner.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pkg/scanner/scanner.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="131" selection-start-line="131" selection-end-line="131" />
+              <folding>
+                <element signature="e#17#57#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="token.go" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pkg/token/token.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="13" column="26" lean-forward="true" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>sc</find>
+      <find>scanI</find>
+      <find>ident</find>
+    </findStrings>
+  </component>
+  <component name="GOROOT" path="/usr/local/Cellar/go/1.10.1/libexec" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/pkg/scanner/scanner.go" />
+        <option value="$PROJECT_DIR$/pkg/scanner/scanner_test.go" />
+        <option value="$PROJECT_DIR$/pkg/token/token.go" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="y" value="23" />
+    <option name="width" value="1280" />
+    <option name="height" value="726" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="glisp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="glisp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="glisp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="glisp" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="go.gopath.indexing.explicitly.defined" value="true" />
+    <property name="go.sdk.automatically.set" value="true" />
+    <property name="go.vendoring.notification.had.been.shown" value="true" />
+    <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Go Test.scanner_test.go">
+    <configuration name="TestScanner_Next_1 in glisp/pkg/scanner" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="glisp" />
+      <working_directory value="$PROJECT_DIR$/pkg/scanner" />
+      <go_parameters value="-i" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="glisp/pkg/scanner" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestScanner_Next_1$" />
+    </configuration>
+    <configuration name="TestScanner_Next_2 in glisp/pkg/scanner" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="glisp" />
+      <working_directory value="$PROJECT_DIR$/pkg/scanner" />
+      <go_parameters value="-i" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="glisp/pkg/scanner" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestScanner_Next_2$" />
+    </configuration>
+    <configuration name="TestScanner_Next_3 in glisp/pkg/scanner" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="glisp" />
+      <working_directory value="$PROJECT_DIR$/pkg/scanner" />
+      <go_parameters value="-i" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="glisp/pkg/scanner" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestScanner_Next_3$" />
+    </configuration>
+    <configuration name="TestScanner_Next_4 in glisp/pkg/scanner" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="glisp" />
+      <working_directory value="$PROJECT_DIR$/pkg/scanner" />
+      <go_parameters value="-i" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="glisp/pkg/scanner" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestScanner_Next_4$" />
+    </configuration>
+    <configuration name="scanner_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="glisp" />
+      <working_directory value="$PROJECT_DIR$/pkg/scanner" />
+      <go_parameters value="-i" />
+      <framework value="gotest" />
+      <kind value="FILE" />
+      <package value="glisp" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/pkg/scanner/scanner_test.go" />
+    </configuration>
+    <list>
+      <item itemvalue="Go Test.TestScanner_Next_1 in glisp/pkg/scanner" />
+      <item itemvalue="Go Test.scanner_test.go" />
+      <item itemvalue="Go Test.TestScanner_Next_2 in glisp/pkg/scanner" />
+      <item itemvalue="Go Test.TestScanner_Next_3 in glisp/pkg/scanner" />
+      <item itemvalue="Go Test.TestScanner_Next_4 in glisp/pkg/scanner" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Test.scanner_test.go" />
+        <item itemvalue="Go Test.TestScanner_Next_4 in glisp/pkg/scanner" />
+        <item itemvalue="Go Test.TestScanner_Next_3 in glisp/pkg/scanner" />
+        <item itemvalue="Go Test.TestScanner_Next_1 in glisp/pkg/scanner" />
+        <item itemvalue="Go Test.TestScanner_Next_2 in glisp/pkg/scanner" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TestHistory">
+    <history-entry file="TestScanner_nextChar_in_glisp_pkg_scanner - 2018.05.03 at 23h 09m 58s.xml">
+      <configuration name="TestScanner_nextChar in glisp/pkg/scanner" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestScanner_Next_1_in_glisp_pkg_scanner - 2018.05.03 at 23h 13m 50s.xml">
+      <configuration name="TestScanner_Next_1 in glisp/pkg/scanner" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="scanner_test_go - 2018.05.03 at 23h 13m 57s.xml">
+      <configuration name="scanner_test.go" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestScanner_Next_2_in_glisp_pkg_scanner - 2018.05.03 at 23h 14m 39s.xml">
+      <configuration name="TestScanner_Next_2 in glisp/pkg/scanner" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestScanner_Next_3_in_glisp_pkg_scanner - 2018.05.03 at 23h 15m 26s.xml">
+      <configuration name="TestScanner_Next_3 in glisp/pkg/scanner" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestScanner_Next_1_in_glisp_pkg_scanner - 2018.05.03 at 23h 18m 20s.xml">
+      <configuration name="TestScanner_Next_1 in glisp/pkg/scanner" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestScanner_Next_3_in_glisp_pkg_scanner - 2018.05.03 at 23h 19m 24s.xml">
+      <configuration name="TestScanner_Next_3 in glisp/pkg/scanner" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestScanner_Next_3_in_glisp_pkg_scanner - 2018.05.03 at 23h 20m 00s.xml">
+      <configuration name="TestScanner_Next_3 in glisp/pkg/scanner" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestScanner_Next_4_in_glisp_pkg_scanner - 2018.05.03 at 23h 20m 45s.xml">
+      <configuration name="TestScanner_Next_4 in glisp/pkg/scanner" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="scanner_test_go - 2018.05.03 at 23h 20m 50s.xml">
+      <configuration name="scanner_test.go" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="1280" height="730" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2536349" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.328594" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.328594" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39968404" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/pkg/scanner/scanner.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
+          <folding>
+            <element signature="e#17#57#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/token/token.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/scanner/scanner_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+          <folding>
+            <element signature="e#17#68#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LICENSE.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="22" lean-forward="true" selection-start-column="22" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="19" lean-forward="true" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/README.md" />
+    <entry file="file:///usr/local/Cellar/go/1.10.1/libexec/src/unicode/graphic.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="109" lean-forward="true" selection-start-line="109" selection-end-line="109" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/go/1.10.1/libexec/src/runtime/panic.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="589" column="1" lean-forward="true" selection-start-line="589" selection-start-column="1" selection-end-line="589" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/go/1.10.1/libexec/src/unicode/digit.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/scanner/scanner.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="131" selection-start-line="131" selection-end-line="131" />
+          <folding>
+            <element signature="e#17#57#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/scanner/scanner_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="9" lean-forward="true" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
+          <folding>
+            <element signature="e#17#68#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/token/token.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="26" lean-forward="true" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
