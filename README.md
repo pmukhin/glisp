@@ -19,6 +19,6 @@
 ```
 
 ### Progress
-[x] Scanner
-[ ] Parser
-[ ] Evaluator
+- [x] Scanner
+- [ ] Parser
+- [ ] Evaluator
