@@ -2,18 +2,18 @@
 
 ### Example
 ```lisp
-(package main)
+(mod main)
 
-(import fmt println)
+(import fmt:println)
 
-(defun fib (n)
+(defun -fib (n)
     (if ((< n 2) n)
-        (+ (fib (- n 1)) (fib (- n 2)))))
+        (+ (-fib (- n 1)) (-fib (- n 2)))))
 
-(defun runfib (n) (fmt:println (fib n)))
+(defun -runfib (n) (fmt:println (fib n)))
 
 (defun main (args)
     (def args-len (len args))
-    (if ((< args-len 2) usage args-len)
-        (runfib (get-index args 0))))
+    (if ((< args-len 2) -usage args-len)
+        (-runfib (get-index args 0))))
 ```
