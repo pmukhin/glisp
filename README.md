@@ -19,6 +19,20 @@
 ```
 
 ### Progress
-- [x] Scanner
-- [ ] Parser
-- [ ] Evaluator
+
+#### Scanner
+- [x] Basic expressions
+- [ ] Macro expressions
+- [ ] Modules & imports
+#### Parser
+- [x] Atom expressions like Int, String, Float, Rune
+- [ ] Macro expressions
+- [ ] Modules & imports
+#### Evaluation
+##### Interpreter
+- [x] Simple expressions & internal functions
+- [x] REPL
+- [ ] Functions and macros
+- [ ] Modules & imports
+##### LLVM-based compiler
+- [ ] Starting...
