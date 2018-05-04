@@ -1,12 +1,13 @@
 package parser
 
 import (
-	"github.com/pmukhin/glisp/pkg/scanner"
-	"github.com/pmukhin/glisp/pkg/token"
-	"github.com/pmukhin/glisp/pkg/ast"
-	"strconv"
 	"fmt"
 	"io"
+	"strconv"
+
+	"github.com/pmukhin/glisp/pkg/ast"
+	"github.com/pmukhin/glisp/pkg/scanner"
+	"github.com/pmukhin/glisp/pkg/token"
 )
 
 type Parser struct {

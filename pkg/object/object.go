@@ -5,7 +5,7 @@ import "fmt"
 type Type int8
 
 const (
-	TInt      Type = iota
+	TInt Type = iota
 	TFunction
 	TString
 	TRune

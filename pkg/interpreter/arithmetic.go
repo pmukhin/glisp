@@ -1,8 +1,9 @@
 package interpreter
 
 import (
-	"github.com/pmukhin/glisp/pkg/object"
 	"strings"
+
+	"github.com/pmukhin/glisp/pkg/object"
 )
 
 func mul(args ...object.Object) (object.Object, error) {

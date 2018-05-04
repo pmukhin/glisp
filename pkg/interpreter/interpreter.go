@@ -1,8 +1,9 @@
 package interpreter
 
 import (
-	"github.com/pmukhin/glisp/pkg/ast"
 	"fmt"
+
+	"github.com/pmukhin/glisp/pkg/ast"
 	"github.com/pmukhin/glisp/pkg/object"
 )
 

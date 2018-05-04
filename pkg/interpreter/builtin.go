@@ -1,9 +1,10 @@
 package interpreter
 
 import (
-	"github.com/pmukhin/glisp/pkg/object"
 	"fmt"
 	"strings"
+
+	"github.com/pmukhin/glisp/pkg/object"
 )
 
 type internalFunc func(args ...object.Object) (object.Object, error)

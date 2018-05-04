@@ -1,14 +1,15 @@
 package main
 
 import (
-	"os"
 	"fmt"
-	"strings"
-	"github.com/pmukhin/glisp/cmd/glisp/repl"
 	"io/ioutil"
+	"os"
+	"strings"
+
+	"github.com/pmukhin/glisp/cmd/glisp/repl"
 	"github.com/pmukhin/glisp/pkg/interpreter"
-	"github.com/pmukhin/glisp/pkg/scanner"
 	"github.com/pmukhin/glisp/pkg/parser"
+	"github.com/pmukhin/glisp/pkg/scanner"
 )
 
 func main() {

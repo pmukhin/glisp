@@ -2,12 +2,13 @@ package repl
 
 import (
 	"bufio"
-	"os"
 	"fmt"
+	"os"
 	"strings"
+
 	"github.com/pmukhin/glisp/pkg/interpreter"
-	"github.com/pmukhin/glisp/pkg/scanner"
 	"github.com/pmukhin/glisp/pkg/parser"
+	"github.com/pmukhin/glisp/pkg/scanner"
 )
 
 func Main() {

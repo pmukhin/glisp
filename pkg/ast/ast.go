@@ -1,16 +1,17 @@
 package ast
 
 import (
-	"github.com/pmukhin/glisp/pkg/token"
+	"fmt"
 	"strconv"
 	"strings"
-	"fmt"
+
+	"github.com/pmukhin/glisp/pkg/token"
 )
 
 type Type int8
 
 const (
-	FunCall     Type = iota
+	FunCall Type = iota
 	ProgramExpr
 	Expr
 	IdentExpr

@@ -2,6 +2,7 @@ package scanner
 
 import (
 	"unicode"
+
 	"github.com/pmukhin/glisp/pkg/token"
 )
 

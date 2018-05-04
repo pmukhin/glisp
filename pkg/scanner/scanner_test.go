@@ -2,6 +2,7 @@ package scanner
 
 import (
 	"testing"
+
 	"github.com/pmukhin/glisp/pkg/token"
 )
 

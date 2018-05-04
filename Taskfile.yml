@@ -3,11 +3,11 @@ version: '2'
 tasks:
   install-goimports:
     cmds:
-      - go get -u golang.org/x/tools/cmd/goimports -w
+      - go get -u golang.org/x/tools/cmd/goimports
 
   goimports:
     cmds:
-      - goimports pkg cmd
+      - goimports -w pkg cmd
 
   build:
     cmds:

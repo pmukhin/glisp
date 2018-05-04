@@ -1,11 +1,12 @@
 package parser
 
 import (
-	"testing"
-	"github.com/pmukhin/glisp/pkg/scanner"
-	"github.com/pmukhin/glisp/pkg/ast"
-	"github.com/pmukhin/glisp/pkg/token"
 	"reflect"
+	"testing"
+
+	"github.com/pmukhin/glisp/pkg/ast"
+	"github.com/pmukhin/glisp/pkg/scanner"
+	"github.com/pmukhin/glisp/pkg/token"
 )
 
 func TestParser_Parse1(t *testing.T) {

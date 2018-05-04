@@ -4,7 +4,7 @@ package token
 type Type int8
 
 const (
-	EOF        Type = iota
+	EOF Type = iota
 	Illegal
 	ParenOp
 	ParenCl
