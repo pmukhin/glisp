@@ -9,6 +9,10 @@ tasks:
     cmds:
       - goimports -w pkg cmd
 
+  tests:
+    cmds:
+      - go test ./...
+
   build:
     cmds:
       - go build -o build/glisp cmd/glisp/main.go
