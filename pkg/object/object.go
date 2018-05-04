@@ -53,6 +53,7 @@ func (Int) Type() Type {
 	return TInt
 }
 
+// String ...
 type String struct {
 	Value string
 }
@@ -63,4 +64,17 @@ func (s String) String() string {
 
 func (String) Type() Type {
 	return TString
+}
+
+// Rune ...
+type Rune struct {
+	Value rune
+}
+
+func (r Rune) String() string {
+	return fmt.Sprintf("%s", string(r.Value))
+}
+
+func (Rune) Type() Type {
+	return TRune
 }

@@ -4,10 +4,11 @@ import (
 	"os"
 	"fmt"
 	"strings"
-	"bufio"
+	"github.com/pmukhin/glisp/cmd/glisp/repl"
+	"io/ioutil"
+	"github.com/pmukhin/glisp/pkg/interpreter"
 	"github.com/pmukhin/glisp/pkg/scanner"
 	"github.com/pmukhin/glisp/pkg/parser"
-	"github.com/pmukhin/glisp/pkg/interpreter"
 )
 
 func main() {
@@ -17,54 +18,44 @@ func main() {
 		usage()
 	}
 
+	runner := usage
+
 	switch args[1] {
 	case "--repl", "-r":
-		runREPL()
+		runner = repl.Main
 	default:
-		if strings.HasSuffix(args[0], ".glisp") {
-			runFile()
+		if strings.HasSuffix(args[1], ".glisp") {
+			runner = runFile
 		}
-		usage()
 	}
+
+	runner()
 }
 
 func runFile() {
-	os.Exit(0)
+	filename := os.Args[1]
+	bts, err := ioutil.ReadFile(filename)
+
+	if err != nil {
+		exit(err.Error())
+	}
+
+	scn := scanner.New(strings.Trim(string(bts), "\n"))
+	prs := parser.New(scn)
+
+	prg, err := prs.Parse()
+	if err != nil {
+		exit(err.Error())
+	}
+	_, err = interpreter.Interpret(prg)
+	if err != nil {
+		exit(err.Error())
+	}
 }
 
-func runREPL() {
-	reader := bufio.NewReader(os.Stdin)
-
-	for {
-		fmt.Printf("glisp> ")
-		bts, err := reader.ReadString('\n')
-
-		if err != nil {
-			fmt.Println(err.Error())
-			continue
-		}
-
-		scn := scanner.New(strings.Trim(string(bts), "\n"))
-		prs := parser.New(scn)
-
-		prg, err := prs.Parse()
-		if err != nil {
-			fmt.Println(err.Error())
-			continue
-		}
-		res, err := interpreter.Interpret(prg)
-		if err != nil {
-			fmt.Println(err.Error())
-			continue
-		}
-		if res == nil {
-			fmt.Println()
-			continue
-		}
-
-		// trim printed output to void duplication newlines
-		fmt.Println(strings.Trim(res.String(), "\n\r"))
-	}
+func exit(msg string) {
+	fmt.Println(msg)
+	os.Exit(-1)
 }
 
 func usage() {

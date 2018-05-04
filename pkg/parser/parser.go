@@ -77,7 +77,8 @@ func (p *Parser) parseStatement() ast.Statement {
 func (p *Parser) parseExpression() ast.Expression {
 	infixParse, ok := p.tok2infix[p.currToken.Type]
 	if !ok {
-		panic("")
+		p.expectError("no infix parser for %s", p.currToken.Type)
+		return nil
 	}
 	return infixParse()
 }
@@ -103,6 +104,7 @@ func (p *Parser) parseInteger() ast.Expression {
 
 	if err != nil {
 		p.expectError(err.Error())
+		return nil
 	}
 
 	ie.Value = v
@@ -126,11 +128,26 @@ func (p *Parser) parseFloat() ast.Expression {
 }
 
 func (p *Parser) parseString() ast.Expression {
-	panic("implement me")
+	se := &ast.StringExpression{Token: p.currToken}
+	se.Value = p.currToken.Literal
+	p.next() // eat String
+
+	return se
 }
 
 func (p *Parser) parseRune() ast.Expression {
-	panic("implement me")
+	se := &ast.RuneExpression{Token: p.currToken}
+	r := []rune(p.currToken.Literal)
+
+	if len(r) != 1 {
+		p.expectError("%s is not a single rune", p.currToken.Literal)
+		return nil
+	}
+
+	se.Value = r[0]
+	p.next() // eat Rune
+
+	return se
 }
 
 func (p *Parser) Parse() (*ast.Program, error) {

@@ -160,6 +160,26 @@ func (fe FloatExpression) String() string {
 // expressionNode ...
 func (fe FloatExpression) expressionNode() {}
 
+// StringExpression ...
+type StringExpression struct {
+	Token token.Token
+	Value string
+}
+
+func (se StringExpression) Pos() int {
+	return se.Token.Pos
+}
+
+func (se StringExpression) Type() Type {
+	return StringExpr
+}
+
+func (se StringExpression) String() string {
+	return se.Value
+}
+
+func (se StringExpression) expressionNode() {}
+
 // Program ...
 type Program struct {
 	Statements []Statement
@@ -174,6 +194,25 @@ func (Program) Pos() int {
 func (Program) Type() Type {
 	return ProgramExpr
 }
+
+type RuneExpression struct {
+	Token token.Token
+	Value rune
+}
+
+func (re RuneExpression) Pos() int {
+	return re.Token.Pos
+}
+
+func (re RuneExpression) Type() Type {
+	return RuneExpr
+}
+
+func (re RuneExpression) String() string {
+	return string(re.Value)
+}
+
+func (re RuneExpression) expressionNode() {}
 
 // String ...
 func (p Program) String() string {

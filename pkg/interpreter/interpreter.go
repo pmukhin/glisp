@@ -18,7 +18,21 @@ func init() {
 	typeToEvaluatorFunc[ast.FunCall] = evalFunctionCall
 	typeToEvaluatorFunc[ast.IntExpr] = evalInt
 	typeToEvaluatorFunc[ast.FloatExpr] = evalFloat
+	typeToEvaluatorFunc[ast.StringExpr] = evalString
+	typeToEvaluatorFunc[ast.RuneExpr] = evalRune
 	typeToEvaluatorFunc[ast.Expr] = evalExpr
+}
+
+// evalString ...
+func evalString(node ast.Node) (object.Object, error) {
+	astStrStmt := node.(*ast.StringExpression)
+	return &object.String{Value: astStrStmt.Value}, nil
+}
+
+// evalRune ...
+func evalRune(node ast.Node) (object.Object, error) {
+	astRuneStmt := node.(*ast.RuneExpression)
+	return &object.Rune{Value: astRuneStmt.Value}, nil
 }
 
 // evalExpr ...
