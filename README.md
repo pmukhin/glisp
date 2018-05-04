@@ -8,7 +8,9 @@
 ```
 #### Function declaration
 ```lisp
-(defun main (args) (print (len args)))
+(defun main (args)
+    "the main function"
+    (print (len args)))
 (main "one" "two") // 2
 ```
 #### Function call
