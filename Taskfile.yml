@@ -1,0 +1,14 @@
+version: '2'
+
+tasks:
+  install-goimports:
+    cmds:
+      - go get -u golang.org/x/tools/cmd/goimports -w
+
+  goimports:
+    cmds:
+      - goimports pkg cmd
+
+  build:
+    cmds:
+      - go build -o build/glisp cmd/glisp/main.go
