@@ -9,7 +9,7 @@
 #### Function declaration
 ```lisp
 (defun main (args) (print (len args)))
-(main ("one" "two")) // 2
+(main "one" "two") // 2
 ```
 #### Function call
 ```lisp
