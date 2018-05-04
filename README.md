@@ -1,6 +1,6 @@
 ## Glisp - a small Lisp implementation in Go
 
-### Example
+### Example (in current state)
 ```lisp
 (print (* 5 5 5) 24.5 "Hello World" 'a')
 ```
@@ -10,6 +10,7 @@
 #### Scanner
 - [x] Basic expressions
 - [ ] Lists
+- [ ] Variable expressions
 - [ ] Macro expressions
 - [ ] Modules & imports
 #### Parser

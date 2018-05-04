@@ -10,6 +10,7 @@ const (
 	TString
 	TRune
 	TFloat
+	TBool
 )
 
 var type2str = map[Type]string{
@@ -18,6 +19,7 @@ var type2str = map[Type]string{
 	TString:   "TString",
 	TRune:     "TRune",
 	TFloat:    "TFloat",
+	TBool:     "TBool",
 }
 
 func (t Type) String() string {
@@ -77,4 +79,22 @@ func (r Rune) String() string {
 
 func (Rune) Type() Type {
 	return TRune
+}
+
+// Bool ...
+type Bool struct {
+	Value bool
+}
+
+// String ...
+func (b Bool) String() string {
+	if b.Value {
+		return "true"
+	}
+	return "false"
+}
+
+// Type ...
+func (b Bool) Type() Type {
+	return TBool
 }
