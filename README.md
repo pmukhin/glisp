@@ -1,4 +1,7 @@
-## Glisp - a small Lisp implementation in Go
+## Glisp - a small Lisp implementation in Go [WIP]
+
+### Motivation
+Fun.
 
 ### Examples
 #### Value declaration
