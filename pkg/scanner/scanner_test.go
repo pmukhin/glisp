@@ -2,7 +2,7 @@ package scanner
 
 import (
 	"testing"
-	"glisp/pkg/token"
+	"github.com/pmukhin/glisp/pkg/token"
 )
 
 type tokenAndLiteral struct {

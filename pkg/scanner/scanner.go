@@ -1,8 +1,8 @@
 package scanner
 
 import (
-	"glisp/pkg/token"
 	"unicode"
+	"github.com/pmukhin/glisp/pkg/token"
 )
 
 func isIdentifier(ch rune) bool {
