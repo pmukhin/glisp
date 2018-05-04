@@ -2,7 +2,7 @@
 
 ### Example
 ```lisp
-(print (* 5 5 5) 24.5 "Hello World")
+(print (* 5 5 5) 24.5 "Hello World" 'a')
 ```
 
 ### Progress
