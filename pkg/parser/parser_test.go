@@ -9,9 +9,8 @@ import (
 	"github.com/pmukhin/glisp/pkg/token"
 )
 
-func TestParser_Parse1(t *testing.T) {
-	source := `(* (+ 2 5) (– 7 (/ 21 7)))`
-	scn := scanner.New(source)
+func do(t *testing.T, s string, e []ast.Statement) {
+	scn := scanner.New(s)
 	parser := New(scn)
 	program, err := parser.Parse()
 
@@ -19,7 +18,13 @@ func TestParser_Parse1(t *testing.T) {
 		t.Error(err)
 	}
 
-	expected := []ast.Statement{
+	if !reflect.DeepEqual(e, program.Statements) {
+		t.Errorf("expected %#v got %#v", e, program.Statements)
+	}
+}
+
+func TestParser_Parse_FunctionCall(t *testing.T) {
+	do(t, `(* 2 5)`, []ast.Statement{
 		&ast.ExpressionStatement{
 			Expression: &ast.FunctionCall{
 				Token: token.New(token.ParenOp, 0),
@@ -28,59 +33,53 @@ func TestParser_Parse1(t *testing.T) {
 					Value: "*",
 				},
 				Args: []ast.Expression{
-					&ast.FunctionCall{
-						Token: token.New(token.ParenOp, 3),
-						Callee: &ast.IdentifierExpression{
-							Token: token.New(token.Identifier, 4, "+"),
-							Value: "+",
-						},
-						Args: []ast.Expression{
-							&ast.IntegerExpression{
-								Token: token.New(token.Integer, 6, "2"),
-								Value: 2,
-							},
-							&ast.IntegerExpression{
-								Token: token.New(token.Integer, 8, "5"),
-								Value: 5,
-							},
-						},
+					&ast.IntegerExpression{
+						Token: token.New(token.Integer, 3, "2"),
+						Value: 2,
+					},
+					&ast.IntegerExpression{
+						Token: token.New(token.Integer, 5, "5"),
+						Value: 5,
+					},
+				},
+			},
+		},
+	})
+}
+
+func TestParser_Parse_RecFunctionCall(t *testing.T) {
+	do(t, `(* 2 (- 5 1))`, []ast.Statement{
+		&ast.ExpressionStatement{
+			Expression: &ast.FunctionCall{
+				Token: token.New(token.ParenOp, 0),
+				Callee: &ast.IdentifierExpression{
+					Token: token.New(token.Identifier, 1, "*"),
+					Value: "*",
+				},
+				Args: []ast.Expression{
+					&ast.IntegerExpression{
+						Token: token.New(token.Integer, 3, "2"),
+						Value: 2,
 					},
 					&ast.FunctionCall{
-						Token: token.New(token.ParenOp, 11),
+						Token: token.New(token.ParenOp, 5),
 						Callee: &ast.IdentifierExpression{
-							Token: token.New(token.Identifier, 12, "-"),
+							Token: token.New(token.Identifier, 6, "-"),
 							Value: "-",
 						},
 						Args: []ast.Expression{
 							&ast.IntegerExpression{
-								Token: token.New(token.Integer, 14, "7"),
-								Value: 7,
+								Token: token.New(token.Integer, 8, "5"),
+								Value: 5,
 							},
-							&ast.FunctionCall{
-								Token: token.New(token.ParenOp, 16),
-								Callee: &ast.IdentifierExpression{
-									Token: token.New(token.Identifier, 17, "/"),
-									Value: "/",
-								},
-								Args: []ast.Expression{
-									&ast.IntegerExpression{
-										Token: token.New(token.Integer, 19, "21"),
-										Value: 21,
-									},
-									&ast.IntegerExpression{
-										Token: token.New(token.Integer, 22, "7"),
-										Value: 7,
-									},
-								},
+							&ast.IntegerExpression{
+								Token: token.New(token.Integer, 10, "1"),
+								Value: 1,
 							},
 						},
 					},
 				},
 			},
 		},
-	}
-
-	if !reflect.DeepEqual(expected, program) {
-		t.Errorf("expected %#v got %#v", expected, program)
-	}
+	})
 }
