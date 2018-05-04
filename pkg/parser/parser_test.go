@@ -9,6 +9,7 @@ import (
 	"github.com/pmukhin/glisp/pkg/token"
 )
 
+// do does the testwork
 func do(t *testing.T, s string, e []ast.Statement) {
 	scn := scanner.New(s)
 	parser := New(scn)

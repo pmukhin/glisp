@@ -1,49 +1,49 @@
-## Glisp - a small Lisp implementation in Go [WIP]
+# Glisp - a small Lisp implementation in Go [WIP]
 
-### Motivation
+## Motivation
 Fun.
 
-### Examples
-#### Value declaration
+## Examples
+### Value declaration
 ```lisp
 (defval i 64 "just an int equal to 64")
 (print i) // 64
 ```
-#### Defining a collection
+### Defining a collection
 ```lisp
 (defval int-list '(1 2 3))  // list
 (defval int-vector [1 2 3]) // vector
 ```
-#### Function declaration
+### Function declaration
 ```lisp
 (defun main (args)
     "the main function"
     (print (len args)))
 (main "one" "two") // 2
 ```
-#### Function call
+### Function call
 ```lisp
 (print (* 5 5)) // 25
 ```
 
-### Progress
+## Progress
 
-#### Scanner
+### Scanner
 - [x] Basic expressions
 - [ ] Lists
 - [ ] Variable expressions
 - [ ] Macro expressions
 - [ ] Modules & imports
-#### Parser
+### Parser
 - [x] Atom expressions like Int, String, Float, Rune
 - [ ] Lists
 - [ ] Macro expressions
 - [ ] Modules & imports
-#### Evaluation
-##### Interpreter
+### Evaluation
+#### Interpreter
 - [x] Simple expressions & internal functions
 - [x] REPL
 - [ ] Functions and macros
 - [ ] Modules & imports
-##### LLVM-based compiler
+#### LLVM-based compiler
 - [ ] Starting...
