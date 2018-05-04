@@ -60,6 +60,6 @@ func exit(msg string) {
 }
 
 func usage() {
-	fmt.Println("glisp <file.glisp> | glisp --runREPL")
+	fmt.Println("glisp <file>.glisp | glisp --run")
 	os.Exit(0)
 }
