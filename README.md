@@ -9,10 +9,12 @@
 
 #### Scanner
 - [x] Basic expressions
+- [ ] Lists
 - [ ] Macro expressions
 - [ ] Modules & imports
 #### Parser
 - [x] Atom expressions like Int, String, Float, Rune
+- [ ] Lists
 - [ ] Macro expressions
 - [ ] Modules & imports
 #### Evaluation
