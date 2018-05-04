@@ -1,8 +1,19 @@
 ## Glisp - a small Lisp implementation in Go
 
-### Example (in current state)
+### Examples
+#### Value declaration
 ```lisp
-(print (* 5 5 5) 24.5 "Hello World" 'a')
+(defval i 64 "just an int equal to 64")
+(print i) // 64
+```
+#### Function declaration
+```lisp
+(defun main (args) (print (len args)))
+(main ("one" "two")) // 2
+```
+#### Function call
+```lisp
+(print (* 5 5)) // 25
 ```
 
 ### Progress
