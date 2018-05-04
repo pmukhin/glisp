@@ -51,24 +51,6 @@ func (p *Parser) assert(typ token.Type) {
 	p.expectError("expected token %s, got %s", typ, p.currToken.Type)
 }
 
-func (p *Parser) Parse() ([]ast.Statement, error) {
-	statements := make([]ast.Statement, 0, 256)
-
-	for {
-		stmt := p.parseStatement()
-		if stmt == nil {
-			break
-		}
-		statements = append(statements, stmt)
-	}
-
-	if p.error != nil && p.error != io.EOF {
-		return statements, p.error
-	}
-
-	return statements, nil
-}
-
 func (p *Parser) parseIdentifier() ast.Expression {
 	p.assert(token.Identifier)
 	defer p.next() // eat Identifier
@@ -139,4 +121,24 @@ func (p *Parser) parseString() ast.Expression {
 
 func (p *Parser) parseRune() ast.Expression {
 	panic("implement me")
+}
+
+func (p *Parser) Parse() (*ast.Program, error) {
+	program := new(ast.Program)
+	statements := make([]ast.Statement, 0, 256)
+
+	for {
+		stmt := p.parseStatement()
+		if stmt == nil {
+			break
+		}
+		statements = append(statements, stmt)
+	}
+
+	if p.error != nil && p.error != io.EOF {
+		return nil, p.error
+	}
+	program.Statements = statements
+
+	return program, nil
 }

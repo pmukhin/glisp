@@ -3,12 +3,14 @@ package ast
 import (
 	"github.com/pmukhin/glisp/pkg/token"
 	"strconv"
+	"strings"
 )
 
 type Type int8
 
 const (
-	FunCall    Type = iota
+	FunCall     Type = iota
+	ProgramExpr
 	Expr
 	IdentExpr
 	StringExpr
@@ -16,6 +18,21 @@ const (
 	FloatExpr
 	RuneExpr
 )
+
+var type2str = map[Type]string{
+	FunCall:     "FunCall",
+	ProgramExpr: "ProgramExpr",
+	Expr:        "Expr",
+	IdentExpr:   "IdentExpr",
+	StringExpr:  "StringExpr",
+	IntExpr:     "IntExpr",
+	FloatExpr:   "FloatExpr",
+	RuneExpr:    "RuneExpr",
+}
+
+func (t Type) String() string {
+	return type2str[t]
+}
 
 type Node interface {
 	Pos() int
@@ -117,3 +134,29 @@ func (ie IntegerExpression) String() string {
 }
 
 func (ie IntegerExpression) expressionNode() {}
+
+// Program ...
+type Program struct {
+	Statements []Statement
+}
+
+// Pos ...
+func (Program) Pos() int {
+	return 0
+}
+
+// Type ...
+func (Program) Type() Type {
+	return ProgramExpr
+}
+
+// String ...
+func (p Program) String() string {
+	stmts := make([]string, len(p.Statements))
+	for i, s := range p.Statements {
+		stmts[i] = s.String()
+	}
+	return strings.Join(stmts, "\n")
+}
+
+func (Program) expressionNode() {}
