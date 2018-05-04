@@ -3,6 +3,19 @@ package token
 // Type is type of a single token
 type Type int8
 
+const (
+	EOF        Type = iota
+	Illegal
+	ParenOp
+	ParenCl
+	Colon
+	Identifier
+	Float
+	Integer
+	Rune
+	String
+)
+
 var type2name = map[Type]string{
 	EOF:        "EOF",
 	Illegal:    "Illegal",
@@ -19,19 +32,6 @@ var type2name = map[Type]string{
 func (t Type) String() string {
 	return type2name[t]
 }
-
-const (
-	EOF        Type = iota
-	Illegal
-	ParenOp
-	ParenCl
-	Colon
-	Identifier
-	Float
-	Integer
-	Rune
-	String
-)
 
 var defaultLiteral = map[Type]string{
 	ParenOp: "(",
