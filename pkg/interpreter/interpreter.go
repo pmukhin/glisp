@@ -17,6 +17,7 @@ func init() {
 	typeToEvaluatorFunc[ast.ProgramExpr] = evalProgram
 	typeToEvaluatorFunc[ast.FunCall] = evalFunctionCall
 	typeToEvaluatorFunc[ast.IntExpr] = evalInt
+	typeToEvaluatorFunc[ast.FloatExpr] = evalFloat
 	typeToEvaluatorFunc[ast.Expr] = evalExpr
 }
 
@@ -32,6 +33,13 @@ func evalInt(node ast.Node) (object.Object, error) {
 	return &object.Int{Value: astInt.Value}, nil
 }
 
+// evalFloat ...
+func evalFloat(node ast.Node) (object.Object, error) {
+	astFloat := node.(*ast.FloatExpression)
+	return &object.Float{Value: astFloat.Value}, nil
+}
+
+// Interpret ...
 func Interpret(n ast.Node) (object.Object, error) {
 	evaluator, ok := typeToEvaluatorFunc[n.Type()]
 	if !ok {

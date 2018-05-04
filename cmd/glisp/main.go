@@ -43,6 +43,7 @@ func runREPL() {
 			fmt.Println(err.Error())
 			continue
 		}
+
 		scn := scanner.New(strings.Trim(string(bts), "\n"))
 		prs := parser.New(scn)
 
@@ -56,10 +57,13 @@ func runREPL() {
 			fmt.Println(err.Error())
 			continue
 		}
-		if res != nil {
-			fmt.Printf("%s", res)
+		if res == nil {
+			fmt.Println()
+			continue
 		}
-		fmt.Println()
+
+		// trim printed output to void duplication newlines
+		fmt.Println(strings.Trim(res.String(), "\n\r"))
 	}
 }
 

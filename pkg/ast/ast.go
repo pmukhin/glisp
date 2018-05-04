@@ -4,6 +4,7 @@ import (
 	"github.com/pmukhin/glisp/pkg/token"
 	"strconv"
 	"strings"
+	"fmt"
 )
 
 type Type int8
@@ -134,6 +135,30 @@ func (ie IntegerExpression) String() string {
 }
 
 func (ie IntegerExpression) expressionNode() {}
+
+// FloatExpression ...
+type FloatExpression struct {
+	Token token.Token
+	Value float64
+}
+
+// Pos ...
+func (fe FloatExpression) Pos() int {
+	return fe.Token.Pos
+}
+
+// Type ...
+func (fe FloatExpression) Type() Type {
+	return FloatExpr
+}
+
+// String ...
+func (fe FloatExpression) String() string {
+	return fmt.Sprintf("%f", fe.Value)
+}
+
+// expressionNode ...
+func (fe FloatExpression) expressionNode() {}
 
 // Program ...
 type Program struct {

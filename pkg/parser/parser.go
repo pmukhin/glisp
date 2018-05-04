@@ -102,7 +102,7 @@ func (p *Parser) parseInteger() ast.Expression {
 	v, err := strconv.ParseInt(p.currToken.Literal, 10, 64)
 
 	if err != nil {
-		panic("error")
+		p.expectError(err.Error())
 	}
 
 	ie.Value = v
@@ -112,7 +112,17 @@ func (p *Parser) parseInteger() ast.Expression {
 }
 
 func (p *Parser) parseFloat() ast.Expression {
-	panic("implement me")
+	fe := &ast.FloatExpression{Token: p.currToken}
+	v, err := strconv.ParseFloat(p.currToken.Literal, 64)
+
+	if err != nil {
+		p.expectError(err.Error())
+	}
+
+	fe.Value = v
+	p.next()
+
+	return fe
 }
 
 func (p *Parser) parseString() ast.Expression {
