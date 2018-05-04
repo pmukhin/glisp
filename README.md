@@ -6,6 +6,11 @@
 (defval i 64 "just an int equal to 64")
 (print i) // 64
 ```
+#### Defining a collection
+```lisp
+(defval int-list '(1 2 3))  // list
+(defval int-vector [1 2 3]) // vector
+```
 #### Function declaration
 ```lisp
 (defun main (args)
