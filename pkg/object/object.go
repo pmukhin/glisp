@@ -1,16 +1,20 @@
 package object
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type Type int8
 
 const (
-	TInt Type = iota
+	TInt      Type = iota
 	TFunction
 	TString
 	TRune
 	TFloat
 	TBool
+	TList
 )
 
 var type2str = map[Type]string{
@@ -20,6 +24,7 @@ var type2str = map[Type]string{
 	TRune:     "TRune",
 	TFloat:    "TFloat",
 	TBool:     "TBool",
+	TList:     "TList",
 }
 
 func (t Type) String() string {
@@ -97,4 +102,23 @@ func (b Bool) String() string {
 // Type ...
 func (b Bool) Type() Type {
 	return TBool
+}
+
+// List ...
+type List struct {
+	Elements []Object
+}
+
+// String ...
+func (l List) String() string {
+	strElements := make([]string, len(l.Elements))
+	for i, el := range l.Elements {
+		strElements[i] = el.String()
+	}
+	return "'(" + strings.Join(strElements, " ") + ")"
+}
+
+// Type ...
+func (l List) Type() Type {
+	return TList
 }

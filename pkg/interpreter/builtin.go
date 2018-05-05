@@ -10,14 +10,15 @@ import (
 type internalFunc func(args ...object.Object) (object.Object, error)
 
 var internalFunctionTable = map[string]internalFunc{
-	"+":     add,
-	"-":     sub,
-	"/":     div,
-	"*":     mul,
-	"print": glispPrint,
+	"+":      add,
+	"-":      sub,
+	"/":      div,
+	"*":      mul,
+	"append": glispAppend,
+	"print":  glispPrint,
 }
 
-func makeArgErr(funName string, expected int, given int) error {
+func makeArgsLenErr(funName string, expected int, given int) error {
 	return fmt.Errorf("%s expects at least %d args, %d given", funName, expected, given)
 }
 
