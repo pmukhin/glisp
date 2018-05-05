@@ -19,7 +19,7 @@ Fun.
 (defun main (args)
     "the main function"
     (print (len args)))
-(main "one" "two") // 2
+(main '("one" "two")) // 2
 ```
 ### Function call
 ```lisp
@@ -30,13 +30,13 @@ Fun.
 
 ### Scanner
 - [x] Basic expressions
-- [ ] Lists
+- [x] Lists
 - [ ] Variable expressions
 - [ ] Macro expressions
 - [ ] Modules & imports
 ### Parser
 - [x] Atom expressions like Int, String, Float, Rune
-- [ ] Lists
+- [x] Lists
 - [ ] Macro expressions
 - [ ] Modules & imports
 ### Evaluation
