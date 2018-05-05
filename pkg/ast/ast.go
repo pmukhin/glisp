@@ -11,7 +11,7 @@ import (
 type Type int8
 
 const (
-	FunCall Type = iota
+	FunCall     Type = iota
 	ProgramExpr
 	Expr
 	IdentExpr
@@ -19,6 +19,7 @@ const (
 	IntExpr
 	FloatExpr
 	RuneExpr
+	ListExpr
 )
 
 var type2str = map[Type]string{
@@ -30,6 +31,7 @@ var type2str = map[Type]string{
 	IntExpr:     "IntExpr",
 	FloatExpr:   "FloatExpr",
 	RuneExpr:    "RuneExpr",
+	ListExpr:    "ListExpr",
 }
 
 func (t Type) String() string {
@@ -214,6 +216,34 @@ func (re RuneExpression) String() string {
 }
 
 func (re RuneExpression) expressionNode() {}
+
+// ListExpression ...
+type ListExpression struct {
+	Token    token.Token
+	Elements []Expression
+}
+
+// Pos ...
+func (le ListExpression) Pos() int {
+	return le.Token.Pos
+}
+
+// Type ...
+func (le ListExpression) Type() Type {
+	return ListExpr
+}
+
+// String ...
+func (le ListExpression) String() string {
+	strList := make([]string, len(le.Elements))
+	for i, el := range le.Elements {
+		strList[i] = el.String()
+	}
+	return "'(" + strings.Join(strList, " ") + ")"
+}
+
+// expressionNode ...
+func (le ListExpression) expressionNode() {}
 
 // String ...
 func (p Program) String() string {
