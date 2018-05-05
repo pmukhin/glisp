@@ -1,4 +1,5 @@
 # Glisp - a small Lisp implementation in Go [WIP]
+[![Build Status](https://travis-ci.org/pmukhin/glisp.svg?branch=master)](https://travis-ci.org/pmukhin/glisp)
 
 ## Motivation
 Fun.
