@@ -4,6 +4,10 @@ go:
   - "1.8.x"
   - "1.9.x"
   - "1.10.x"
-  - master
 
-script: go test ./...
+before_install:
+  - go get -u golang.org/x/lint/golint
+
+script:
+  - golint ./...
+  - go test ./...
