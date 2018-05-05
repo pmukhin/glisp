@@ -31,7 +31,7 @@ func Main() {
 			fmt.Println(err.Error())
 			continue
 		}
-		res, err := interpreter.Interpret(prg)
+		res, err := interpreter.Eval(prg)
 		if err != nil {
 			fmt.Println(err.Error())
 			continue

@@ -2,7 +2,6 @@ package parser
 
 import (
 	"fmt"
-	"io"
 	"strconv"
 
 	"github.com/pmukhin/glisp/pkg/ast"
@@ -11,6 +10,8 @@ import (
 )
 
 type Parser struct {
+	tokBackup []token.Token
+
 	tok2infix map[token.Type]func() ast.Expression
 	scn       *scanner.Scanner
 	currToken token.Token
@@ -19,16 +20,20 @@ type Parser struct {
 
 func New(scn *scanner.Scanner) *Parser {
 	p := new(Parser)
+	// init backup
+	p.tokBackup = make([]token.Token, 0, 256)
+
 	p.scn = scn
 	p.error = nil
 	p.currToken = token.Token{Type: token.EOF, Literal: "EOF", Pos: -1}
 	p.tok2infix = make(map[token.Type]func() ast.Expression)
 
 	p.tok2infix[token.ParenOp] = p.parseFunctionCall
+	p.tok2infix[token.SingleQuote] = p.parseList
 	p.tok2infix[token.Integer] = p.parseInteger
 	p.tok2infix[token.Float] = p.parseFloat
 	p.tok2infix[token.String] = p.parseString
-	p.tok2infix[token.Rune] = p.parseRune
+	//p.tok2infix[token.Rune] = p.parseRune
 	p.tok2infix[token.Identifier] = p.parseIdentifier
 
 	p.next()
@@ -37,6 +42,8 @@ func New(scn *scanner.Scanner) *Parser {
 }
 
 func (p *Parser) next() {
+	p.tokBackup = append(p.tokBackup, p.currToken)
+
 	tok := p.scn.Next()
 	p.currToken = tok
 }
@@ -61,7 +68,6 @@ func (p *Parser) parseIdentifier() ast.Expression {
 
 func (p *Parser) parseStatement() ast.Statement {
 	if p.currToken.Type == token.EOF {
-		p.error = io.EOF
 		return nil
 	}
 
@@ -84,17 +90,40 @@ func (p *Parser) parseExpression() ast.Expression {
 	return infixParse()
 }
 
+func (p *Parser) parseList() ast.Expression {
+	le := &ast.ListExpression{Token: p.currToken}
+	p.next() // eat `'`
+
+	p.assert(token.ParenOp)
+	p.next() // eat `(`
+
+	le.Elements = p.parseExpressionList()
+	p.next() // eat `)`
+
+	return le
+}
+
+func (p *Parser) parseExpressionList() []ast.Expression {
+	ls := make([]ast.Expression, 0, 8)
+	for p.currToken.Type != token.ParenCl {
+		res := p.parseExpression()
+		if res == nil || p.error != nil {
+			return nil
+		}
+		ls = append(ls, res)
+	}
+
+	return ls
+}
+
 func (p *Parser) parseFunctionCall() ast.Expression {
 	fc := &ast.FunctionCall{Token: p.currToken}
 	p.assert(token.ParenOp)
 	p.next() // eat `(`
 
 	fc.Callee = p.parseIdentifier()
-	for p.currToken.Type != token.ParenCl {
-		fc.Args = append(fc.Args, p.parseExpression())
-	}
-	p.assert(token.ParenCl)
-	p.next() // eat `)`
+	fc.Args = p.parseExpressionList()
+	p.next() // eat ')'
 
 	return fc
 }
@@ -136,21 +165,6 @@ func (p *Parser) parseString() ast.Expression {
 	return se
 }
 
-func (p *Parser) parseRune() ast.Expression {
-	se := &ast.RuneExpression{Token: p.currToken}
-	r := []rune(p.currToken.Literal)
-
-	if len(r) != 1 {
-		p.expectError("%s is not a single rune", p.currToken.Literal)
-		return nil
-	}
-
-	se.Value = r[0]
-	p.next() // eat Rune
-
-	return se
-}
-
 func (p *Parser) Parse() (*ast.Program, error) {
 	program := new(ast.Program)
 	statements := make([]ast.Statement, 0, 256)
@@ -163,10 +177,14 @@ func (p *Parser) Parse() (*ast.Program, error) {
 		statements = append(statements, stmt)
 	}
 
-	if p.error != nil && p.error != io.EOF {
+	if p.error != nil {
 		return nil, p.error
 	}
 	program.Statements = statements
 
 	return program, nil
+}
+
+func (p *Parser) TokList() []token.Token {
+	return p.tokBackup
 }

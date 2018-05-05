@@ -4,10 +4,11 @@ package token
 type Type int8
 
 const (
-	EOF Type = iota
+	EOF         Type = iota
 	Illegal
 	ParenOp
 	ParenCl
+	SingleQuote
 	Colon
 	Identifier
 	Float
@@ -17,16 +18,17 @@ const (
 )
 
 var type2name = map[Type]string{
-	EOF:        "EOF",
-	Illegal:    "Illegal",
-	ParenOp:    "ParenOp<(>",
-	ParenCl:    "ParenCl<)>",
-	Colon:      "Colon<:>",
-	Identifier: "Identifier",
-	Float:      "Float",
-	Integer:    "Integer",
-	Rune:       "Rune",
-	String:     "String",
+	EOF:         "EOF",
+	Illegal:     "Illegal",
+	ParenOp:     "ParenOp<(>",
+	ParenCl:     "ParenCl<)>",
+	SingleQuote: "SingleQuote<'>",
+	Colon:       "Colon<:>",
+	Identifier:  "Identifier",
+	Float:       "Float",
+	Integer:     "Integer",
+	Rune:        "Rune",
+	String:      "String",
 }
 
 func (t Type) String() string {
@@ -34,9 +36,10 @@ func (t Type) String() string {
 }
 
 var defaultLiteral = map[Type]string{
-	ParenOp: "(",
-	ParenCl: ")",
-	Colon:   ":",
+	ParenOp:     "(",
+	ParenCl:     ")",
+	Colon:       ":",
+	SingleQuote: "'",
 }
 
 // Token represents a single token both terminals and non-terminals

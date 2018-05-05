@@ -24,7 +24,13 @@ func doTest(t *testing.T, input string, expected []token.Type) {
 		tokens = append(tokens, tok)
 	}
 
-	for i := 0; i < len(tokens); i++ {
+	if len(tokens) != len(expected) {
+		t.Errorf("wrong number of tokens returned: exp. %d vs %d given",
+			len(expected), len(tokens))
+		return
+	}
+
+	for i := 0; i < len(expected); i++ {
 		if tokens[i].Type != expected[i] {
 			t.Errorf(
 				"%d: expected token of type %v, got %v in pos %d",
@@ -73,11 +79,11 @@ func doTestWithLiterals(t *testing.T, input string, expected []tokenAndLiteral) 
 }
 
 func TestScanner_Next_4(t *testing.T) {
-	doTestWithLiterals(t, `(+ "test" 'a')`, []tokenAndLiteral{
+	doTestWithLiterals(t, `(+ "test" "b")`, []tokenAndLiteral{
 		{token.ParenOp, "("},
 		{token.Identifier, "+"},
 		{token.String, "test"},
-		{token.Rune, "a"},
+		{token.String, "b"},
 		{token.ParenCl, ")"},
 	})
 }
@@ -98,6 +104,33 @@ func TestScanner_Next_2(t *testing.T) {
 		token.Identifier,
 		token.String,
 		token.String,
+		token.ParenCl,
+	})
+}
+
+func TestScanner_Next_ListOfRunes(t *testing.T) {
+	doTest(t, `(print '("a" "b" "c"))`, []token.Type{
+		token.ParenOp,
+		token.Identifier,
+		token.SingleQuote,
+		token.ParenOp,
+		token.String,
+		token.String,
+		token.String,
+		token.ParenCl,
+		token.ParenCl,
+	})
+}
+
+func TestScanner_Next_List(t *testing.T) {
+	doTest(t, `(print '(a b))`, []token.Type{
+		token.ParenOp,
+		token.Identifier,
+		token.SingleQuote,
+		token.ParenOp,
+		token.Identifier,
+		token.Identifier,
+		token.ParenCl,
 		token.ParenCl,
 	})
 }

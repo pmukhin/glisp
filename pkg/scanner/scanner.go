@@ -56,7 +56,7 @@ func (s *Scanner) Next() token.Token {
 	case '"':
 		return s.scanString()
 	case '\'':
-		return s.scanRune()
+		tokType = token.SingleQuote
 	case ':':
 		tokType = token.Colon
 	default:
@@ -93,28 +93,16 @@ func (s *Scanner) skipWhitespace() {
 }
 
 func (s *Scanner) scanString() token.Token {
-	s.nextChar()    // eat `"`
 	pos := s.offset // preserve the position
+	s.nextChar()    // eat `"`
 	str := make([]rune, 0, 32)
 
 	for s.ch != '"' {
 		str = append(str, s.ch)
 		s.nextChar()
 	}
-	s.nextChar() // eat next `"`
 
 	return token.New(token.String, pos, string(str))
-}
-
-func (s *Scanner) scanRune() token.Token {
-	s.nextChar() // eat `'`
-	rn := s.ch
-	s.nextChar() // eat rune
-
-	if s.ch != '\'' {
-		return token.New(token.Illegal, s.offset, string(s.ch))
-	}
-	return token.New(token.Rune, s.offset, string(rn))
 }
 
 func (s *Scanner) scanNumber() token.Token {
@@ -135,6 +123,13 @@ func (s *Scanner) scanNumber() token.Token {
 	s.un()
 
 	return token.New(typ, s.offset, string(str))
+}
+
+func (s *Scanner) peek() rune {
+	s.nextChar()
+	defer s.un()
+
+	return s.ch
 }
 
 func (s *Scanner) un() {

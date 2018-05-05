@@ -21,6 +21,7 @@ func init() {
 	typeToEvaluatorFunc[ast.FloatExpr] = evalFloat
 	typeToEvaluatorFunc[ast.StringExpr] = evalString
 	typeToEvaluatorFunc[ast.RuneExpr] = evalRune
+	typeToEvaluatorFunc[ast.ListExpr] = evalList
 	typeToEvaluatorFunc[ast.Expr] = evalExpr
 }
 
@@ -28,6 +29,20 @@ func init() {
 func evalString(node ast.Node) (object.Object, error) {
 	astStrStmt := node.(*ast.StringExpression)
 	return &object.String{Value: astStrStmt.Value}, nil
+}
+
+// evalList ...
+func evalList(node ast.Node) (object.Object, error) {
+	listStmt := node.(*ast.ListExpression)
+	list := &object.List{Elements: make([]object.Object, 0, 32)}
+	for _, astElem := range listStmt.Elements {
+		oElem, err := Eval(astElem)
+		if err != nil {
+			return nil, err
+		}
+		list.Elements = append(list.Elements, oElem)
+	}
+	return list, nil
 }
 
 // evalRune ...
@@ -39,7 +54,7 @@ func evalRune(node ast.Node) (object.Object, error) {
 // evalExpr ...
 func evalExpr(node ast.Node) (object.Object, error) {
 	astExprStmt := node.(*ast.ExpressionStatement)
-	return Interpret(astExprStmt.Expression)
+	return Eval(astExprStmt.Expression)
 }
 
 // evalInt ...
@@ -54,8 +69,8 @@ func evalFloat(node ast.Node) (object.Object, error) {
 	return &object.Float{Value: astFloat.Value}, nil
 }
 
-// Interpret ...
-func Interpret(n ast.Node) (object.Object, error) {
+// Eval ...
+func Eval(n ast.Node) (object.Object, error) {
 	evaluator, ok := typeToEvaluatorFunc[n.Type()]
 	if !ok {
 		return nil, fmt.Errorf("can not evaluate %s", n.Type())
@@ -69,7 +84,7 @@ func evalProgram(node ast.Node) (object.Object, error) {
 
 	var lastVal object.Object = nil
 	for _, statement := range program.Statements {
-		val, err := Interpret(statement)
+		val, err := Eval(statement)
 		if err != nil {
 			return nil, err
 		}
@@ -90,7 +105,7 @@ func evalFunctionCall(node ast.Node) (object.Object, error) {
 
 	args := make([]object.Object, len(fc.Args))
 	for i, rawArg := range fc.Args {
-		objArg, err := Interpret(rawArg)
+		objArg, err := Eval(rawArg)
 		if err != nil {
 			return nil, err
 		}

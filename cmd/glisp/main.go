@@ -25,7 +25,8 @@ func main() {
 	case "--repl", "-r":
 		runner = repl.Main
 	default:
-		if strings.HasSuffix(args[1], ".glisp") {
+		if strings.HasSuffix(args[1], ".glisp") ||
+			strings.HasSuffix(args[1], ".gl") {
 			runner = runFile
 		}
 	}
@@ -48,7 +49,7 @@ func runFile() {
 	if err != nil {
 		exit(err.Error())
 	}
-	_, err = interpreter.Interpret(prg)
+	_, err = interpreter.Eval(prg)
 	if err != nil {
 		exit(err.Error())
 	}

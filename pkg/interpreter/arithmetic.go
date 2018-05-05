@@ -8,7 +8,7 @@ import (
 
 func mul(args ...object.Object) (object.Object, error) {
 	if len(args) < 2 {
-		return nil, makeArgErr("__mul__", 2, len(args))
+		return nil, makeArgsLenErr("__mul__", 2, len(args))
 	}
 	firstType := args[0].Type()
 	switch firstType {
@@ -68,7 +68,7 @@ func iMul(args ...int64) (object.Object, error) {
 
 func div(args ...object.Object) (object.Object, error) {
 	if len(args) < 2 {
-		return nil, makeArgErr("__div__", 2, len(args))
+		return nil, makeArgsLenErr("__div__", 2, len(args))
 	}
 	firstType := args[0].Type()
 	switch firstType {
@@ -89,14 +89,14 @@ func div(args ...object.Object) (object.Object, error) {
 		for i, ar := range args {
 			oFloat, ok := ar.(*object.Float)
 			if !ok {
-				return nil, makeUnexpectedTypeErr("__mul__", i,
+				return nil, makeUnexpectedTypeErr("__div__", i,
 					object.TFloat, ar.Type())
 			}
 			floatArgs[i] = oFloat.Value
 		}
 		return fDiv(floatArgs...)
 	default:
-		return nil, makeFunNotDefErr("__mul__", firstType)
+		return nil, makeFunNotDefErr("__div__", firstType)
 	}
 }
 
@@ -118,7 +118,7 @@ func iDiv(args ...int64) (object.Object, error) {
 
 func sub(args ...object.Object) (object.Object, error) {
 	if len(args) < 2 {
-		return nil, makeArgErr("__div__", 2, len(args))
+		return nil, makeArgsLenErr("__sub__", 2, len(args))
 	}
 	firstType := args[0].Type()
 	switch firstType {
@@ -128,7 +128,7 @@ func sub(args ...object.Object) (object.Object, error) {
 		for i, ar := range args {
 			oInt, ok := ar.(*object.Int)
 			if !ok {
-				return nil, makeUnexpectedTypeErr("__div__", i,
+				return nil, makeUnexpectedTypeErr("__sub__", i,
 					object.TInt, ar.Type())
 			}
 			intArgs[i] = oInt.Value
@@ -139,14 +139,14 @@ func sub(args ...object.Object) (object.Object, error) {
 		for i, ar := range args {
 			oFloat, ok := ar.(*object.Float)
 			if !ok {
-				return nil, makeUnexpectedTypeErr("__mul__", i,
+				return nil, makeUnexpectedTypeErr("__sub__", i,
 					object.TFloat, ar.Type())
 			}
 			floatArgs[i] = oFloat.Value
 		}
 		return fSub(floatArgs...)
 	default:
-		return nil, makeFunNotDefErr("__mul__", firstType)
+		return nil, makeFunNotDefErr("__sub__", firstType)
 	}
 }
 
@@ -168,7 +168,7 @@ func iSub(args ...int64) (object.Object, error) {
 
 func add(args ...object.Object) (object.Object, error) {
 	if len(args) < 2 {
-		return nil, makeArgErr("__add__", 2, len(args))
+		return nil, makeArgsLenErr("__add__", 2, len(args))
 	}
 	firstType := args[0].Type()
 	switch firstType {
@@ -196,7 +196,7 @@ func add(args ...object.Object) (object.Object, error) {
 		}
 		return fAdd(floatArgs...)
 	default:
-		return nil, makeFunNotDefErr("__mul__", firstType)
+		return nil, makeFunNotDefErr("__add__", firstType)
 	}
 }
 
