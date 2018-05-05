@@ -31,12 +31,14 @@ Fun.
 ### Scanner
 - [x] Basic expressions
 - [x] Lists
+- [ ] Vectors
 - [ ] Variable expressions
 - [ ] Macro expressions
 - [ ] Modules & imports
 ### Parser
 - [x] Atom expressions like Int, String, Float, Rune
 - [x] Lists
+- [ ] Vectors
 - [ ] Macro expressions
 - [ ] Modules & imports
 ### Evaluation

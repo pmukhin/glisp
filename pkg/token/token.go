@@ -8,6 +8,8 @@ const (
 	Illegal
 	ParenOp
 	ParenCl
+	BracketOp
+	BracketCl
 	SingleQuote
 	Colon
 	Identifier
@@ -22,6 +24,8 @@ var type2name = map[Type]string{
 	Illegal:     "Illegal",
 	ParenOp:     "ParenOp<(>",
 	ParenCl:     "ParenCl<)>",
+	BracketOp:   "BracketOp<[>",
+	BracketCl:   "BracketCl<]>",
 	SingleQuote: "SingleQuote<'>",
 	Colon:       "Colon<:>",
 	Identifier:  "Identifier",
@@ -38,6 +42,8 @@ func (t Type) String() string {
 var defaultLiteral = map[Type]string{
 	ParenOp:     "(",
 	ParenCl:     ")",
+	BracketOp:   "[",
+	BracketCl:   "]",
 	Colon:       ":",
 	SingleQuote: "'",
 }

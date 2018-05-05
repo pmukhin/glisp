@@ -15,6 +15,7 @@ const (
 	TFloat
 	TBool
 	TList
+	TVector
 )
 
 var type2str = map[Type]string{
@@ -25,6 +26,7 @@ var type2str = map[Type]string{
 	TFloat:    "TFloat",
 	TBool:     "TBool",
 	TList:     "TList",
+	TVector:   "TVector",
 }
 
 func (t Type) String() string {
@@ -121,4 +123,23 @@ func (l List) String() string {
 // Type ...
 func (l List) Type() Type {
 	return TList
+}
+
+// Vector ...
+type Vector struct {
+	Elements []Object
+}
+
+// String ...
+func (v Vector) String() string {
+	strElements := make([]string, len(v.Elements))
+	for i, el := range v.Elements {
+		strElements[i] = el.String()
+	}
+	return "[" + strings.Join(strElements, " ") + "]"
+}
+
+// Type ...
+func (Vector) Type() Type {
+	return TVector
 }

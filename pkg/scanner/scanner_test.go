@@ -135,6 +135,18 @@ func TestScanner_Next_List(t *testing.T) {
 	})
 }
 
+func TestScanner_Next_Vector(t *testing.T) {
+	doTest(t, `(print [1 2])`, []token.Type{
+		token.ParenOp,
+		token.Identifier,
+		token.BracketOp,
+		token.Integer,
+		token.Integer,
+		token.BracketCl,
+		token.ParenCl,
+	})
+}
+
 func TestScanner_Next_1(t *testing.T) {
 	input := `
 (defun fib (n) 

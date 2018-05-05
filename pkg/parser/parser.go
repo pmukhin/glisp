@@ -35,6 +35,7 @@ func New(scn *scanner.Scanner) *Parser {
 	p.tok2infix[token.String] = p.parseString
 	//p.tok2infix[token.Rune] = p.parseRune
 	p.tok2infix[token.Identifier] = p.parseIdentifier
+	p.tok2infix[token.BracketOp] = p.parseVector
 
 	p.next()
 
@@ -67,18 +68,20 @@ func (p *Parser) parseIdentifier() ast.Expression {
 }
 
 func (p *Parser) parseStatement() ast.Statement {
-	if p.currToken.Type == token.EOF {
+	switch p.currToken.Type {
+	case token.EOF:
 		return nil
+		// case token.Semicolon:
+	default:
+		return p.parseExpressionStatement()
 	}
+}
 
-	if p.currToken.Type == token.ParenOp {
-		stmt := &ast.ExpressionStatement{}
-		stmt.Expression = p.parseExpression()
+func (p *Parser) parseExpressionStatement() ast.Statement {
+	stmt := &ast.ExpressionStatement{}
+	stmt.Expression = p.parseExpression()
 
-		return stmt
-	}
-
-	panic("unsupported statement type")
+	return stmt
 }
 
 func (p *Parser) parseExpression() ast.Expression {
@@ -103,9 +106,22 @@ func (p *Parser) parseList() ast.Expression {
 	return le
 }
 
+func (p *Parser) parseVector() ast.Expression {
+	ve := &ast.VectorExpression{Token: p.currToken}
+	p.next() // eat `[`
+
+	ve.Elements = p.parseExpressionList()
+
+	p.assert(token.BracketCl)
+	p.next() // eat `]`
+
+	return ve
+}
+
 func (p *Parser) parseExpressionList() []ast.Expression {
 	ls := make([]ast.Expression, 0, 8)
-	for p.currToken.Type != token.ParenCl {
+	for p.currToken.Type != token.ParenCl &&
+		p.currToken.Type != token.BracketCl {
 		res := p.parseExpression()
 		if res == nil || p.error != nil {
 			return nil

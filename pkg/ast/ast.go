@@ -20,6 +20,7 @@ const (
 	FloatExpr
 	RuneExpr
 	ListExpr
+	VectorExpr
 )
 
 var type2str = map[Type]string{
@@ -32,6 +33,7 @@ var type2str = map[Type]string{
 	FloatExpr:   "FloatExpr",
 	RuneExpr:    "RuneExpr",
 	ListExpr:    "ListExpr",
+	VectorExpr:  "VectorExpr",
 }
 
 func (t Type) String() string {
@@ -244,6 +246,30 @@ func (le ListExpression) String() string {
 
 // expressionNode ...
 func (le ListExpression) expressionNode() {}
+
+// VectorExpression ...
+type VectorExpression struct {
+	Token    token.Token
+	Elements []Expression
+}
+
+// VectorExpression ...
+func (ve VectorExpression) Pos() int { return ve.Token.Pos }
+
+// Type ...
+func (ve VectorExpression) Type() Type { return VectorExpr }
+
+// String ...
+func (ve VectorExpression) String() string {
+	strList := make([]string, len(ve.Elements))
+	for i, el := range ve.Elements {
+		strList[i] = el.String()
+	}
+	return "[" + strings.Join(strList, " ") + "]"
+}
+
+// expressionNode ...
+func (ve VectorExpression) expressionNode() {}
 
 // String ...
 func (p Program) String() string {

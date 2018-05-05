@@ -8,6 +8,47 @@ import (
 	"reflect"
 )
 
+func TestEval_Vector(t *testing.T) {
+	program := &ast.Program{
+		Statements: []ast.Statement{
+			&ast.ExpressionStatement{
+				Expression: &ast.VectorExpression{
+					Token: token.New(token.BracketOp, 0),
+					Elements: []ast.Expression{
+						&ast.StringExpression{
+							Token: token.New(token.String, 1, "a"),
+							Value: "a",
+						},
+						&ast.StringExpression{
+							Token: token.New(token.String, 5, "b"),
+							Value: "b",
+						},
+						&ast.StringExpression{
+							Token: token.New(token.String, 9, "c"),
+							Value: "c",
+						},
+					},
+				},
+			},
+		},
+	}
+
+	res, err := Eval(program)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	list := res.(*object.Vector)
+	expectedElements := []object.Object{
+		&object.String{Value: "a"}, &object.String{Value: "b"}, &object.String{Value: "c"},
+	}
+
+	if !reflect.DeepEqual(list.Elements, expectedElements) {
+		t.Errorf("wrong elements in resulting list: %v vs %v", expectedElements, list.Elements)
+	}
+}
+
 func TestEval_ListAppend(t *testing.T) {
 	program := &ast.Program{
 		Statements: []ast.Statement{

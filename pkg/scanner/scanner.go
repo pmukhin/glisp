@@ -53,6 +53,10 @@ func (s *Scanner) Next() token.Token {
 		tokType = token.ParenOp
 	case ')':
 		tokType = token.ParenCl
+	case '[':
+		tokType = token.BracketOp
+	case ']':
+		tokType = token.BracketCl
 	case '"':
 		return s.scanString()
 	case '\'':

@@ -25,6 +25,30 @@ func do(t *testing.T, s string, e []ast.Statement) {
 	}
 }
 
+func TestParser_Parse_VectorOfStrings(t *testing.T) {
+	do(t, `["a" "b" "c"]`, []ast.Statement{
+		&ast.ExpressionStatement{
+			Expression: &ast.VectorExpression{
+				Token: token.New(token.BracketOp, 0),
+				Elements: []ast.Expression{
+					&ast.StringExpression{
+						Token: token.New(token.String, 1, "a"),
+						Value: "a",
+					},
+					&ast.StringExpression{
+						Token: token.New(token.String, 5, "b"),
+						Value: "b",
+					},
+					&ast.StringExpression{
+						Token: token.New(token.String, 9, "c"),
+						Value: "c",
+					},
+				},
+			},
+		},
+	})
+}
+
 func TestParser_Parse_ApplyToListOfStrings(t *testing.T) {
 	do(t, `(print '("a" "b" "c"))`, []ast.Statement{
 		&ast.ExpressionStatement{

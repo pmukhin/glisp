@@ -22,6 +22,7 @@ func init() {
 	typeToEvaluatorFunc[ast.StringExpr] = evalString
 	typeToEvaluatorFunc[ast.RuneExpr] = evalRune
 	typeToEvaluatorFunc[ast.ListExpr] = evalList
+	typeToEvaluatorFunc[ast.VectorExpr] = evalVector
 	typeToEvaluatorFunc[ast.Expr] = evalExpr
 }
 
@@ -40,6 +41,31 @@ func evalList(node ast.Node) (object.Object, error) {
 		if err != nil {
 			return nil, err
 		}
+		list.Elements = append(list.Elements, oElem)
+	}
+	return list, nil
+}
+
+// evalVector ...
+func evalVector(node ast.Node) (object.Object, error) {
+	listStmt := node.(*ast.VectorExpression)
+	list := &object.Vector{Elements: make([]object.Object, 0, 32)}
+
+	var fType object.Type = -1
+	for _, astElem := range listStmt.Elements {
+		oElem, err := Eval(astElem)
+		if err != nil {
+			return nil, err
+		}
+		if fType == -1 {
+			fType = oElem.Type()
+		} else {
+			if fType != oElem.Type() {
+				return nil, fmt.Errorf("vectors contain only values "+
+					"of the same type: %s is expected, %s given", fType, oElem.Type())
+			}
+		}
+
 		list.Elements = append(list.Elements, oElem)
 	}
 	return list, nil
