@@ -13,6 +13,8 @@ type Parser struct {
 	tokBackup []token.Token
 
 	tok2infix map[token.Type]func() ast.Expression
+	tok2macro map[string]func(token.Token) ast.Expression
+
 	scn       *scanner.Scanner
 	currToken token.Token
 	error     error
@@ -26,8 +28,8 @@ func New(scn *scanner.Scanner) *Parser {
 	p.scn = scn
 	p.error = nil
 	p.currToken = token.Token{Type: token.EOF, Literal: "EOF", Pos: -1}
-	p.tok2infix = make(map[token.Type]func() ast.Expression)
 
+	p.tok2infix = make(map[token.Type]func() ast.Expression)
 	p.tok2infix[token.ParenOp] = p.parseFunctionCall
 	p.tok2infix[token.SingleQuote] = p.parseList
 	p.tok2infix[token.Integer] = p.parseInteger
@@ -36,6 +38,9 @@ func New(scn *scanner.Scanner) *Parser {
 	//p.tok2infix[token.Rune] = p.parseRune
 	p.tok2infix[token.Identifier] = p.parseIdentifier
 	p.tok2infix[token.BracketOp] = p.parseVector
+
+	p.tok2macro = make(map[string]func(token.Token) ast.Expression)
+	p.tok2macro["defvar"] = p.parseDefVar
 
 	p.next()
 
@@ -93,6 +98,18 @@ func (p *Parser) parseExpression() ast.Expression {
 	return infixParse()
 }
 
+func (p *Parser) parseDefVar(tok token.Token) ast.Expression {
+	dve := &ast.DefVarExpression{Token: tok}
+	dve.Name = p.parseIdentifier().(*ast.IdentifierExpression)
+	dve.Value = p.parseExpression()
+	dve.Comment = p.parseString()
+
+	p.assert(token.ParenCl)
+	p.next() // eat `)`
+
+	return dve
+}
+
 func (p *Parser) parseList() ast.Expression {
 	le := &ast.ListExpression{Token: p.currToken}
 	p.next() // eat `'`
@@ -133,11 +150,19 @@ func (p *Parser) parseExpressionList() []ast.Expression {
 }
 
 func (p *Parser) parseFunctionCall() ast.Expression {
-	fc := &ast.FunctionCall{Token: p.currToken}
-	p.assert(token.ParenOp)
+	prToken := p.currToken // if it's a fun call
 	p.next() // eat `(`
 
-	fc.Callee = p.parseIdentifier()
+	idToken := p.currToken // if it's a macro
+	callee := p.parseIdentifier()
+	macroFun, ok := p.tok2macro[callee.(*ast.IdentifierExpression).Value]
+	if ok {
+		return macroFun(idToken)
+	}
+
+	fc := &ast.FunctionCall{Token: prToken}
+
+	fc.Callee = callee
 	fc.Args = p.parseExpressionList()
 	p.next() // eat ')'
 

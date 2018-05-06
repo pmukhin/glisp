@@ -8,6 +8,47 @@ import (
 	"reflect"
 )
 
+func TestEval_DefVar(t *testing.T) {
+	program := &ast.Program{
+		Statements: []ast.Statement{
+			&ast.ExpressionStatement{
+				Expression: &ast.DefVarExpression{
+					Token: token.New(token.Identifier, 1, "defvar"),
+					Name: &ast.IdentifierExpression{
+						Token: token.New(token.Identifier, 8, "int-list"),
+						Value: "int-list",
+					},
+					Value: &ast.ListExpression{
+						Token: token.New(token.SingleQuote, 17),
+						Elements: []ast.Expression{
+							&ast.IntegerExpression{
+								Token: token.New(token.Integer, 19, "1"),
+								Value: 1,
+							},
+							&ast.IntegerExpression{
+								Token: token.New(token.Integer, 21, "2"),
+								Value: 2,
+							},
+						},
+					},
+					Comment: &ast.StringExpression{
+						Token: token.New(token.String, 24, "a list of ints"),
+						Value: "a list of ints",
+					},
+				},
+			},
+		},
+	}
+
+	res, err := Eval(program)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	panic(res)
+}
+
 func TestEval_Vector(t *testing.T) {
 	program := &ast.Program{
 		Statements: []ast.Statement{

@@ -7,6 +7,7 @@ import (
 	"github.com/pmukhin/glisp/pkg/ast"
 	"github.com/pmukhin/glisp/pkg/scanner"
 	"github.com/pmukhin/glisp/pkg/token"
+	"fmt"
 )
 
 // do does the testwork
@@ -22,7 +23,41 @@ func do(t *testing.T, s string, e []ast.Statement) {
 
 	if !reflect.DeepEqual(e, program.Statements) {
 		t.Errorf("expected %#v got %#v", e, program.Statements)
+		tokTrace := ast.Print(program)
+
+		fmt.Println(tokTrace)
 	}
+}
+
+func TestParser_Parse_MacroDefVar(t *testing.T) {
+	do(t, `(defvar int-list '(1 2) "a list of ints")`, []ast.Statement{
+		&ast.ExpressionStatement{
+			Expression: &ast.DefVarExpression{
+				Token: token.New(token.Identifier, 1, "defvar"),
+				Name: &ast.IdentifierExpression{
+					Token: token.New(token.Identifier, 8, "int-list"),
+					Value: "int-list",
+				},
+				Value: &ast.ListExpression{
+					Token: token.New(token.SingleQuote, 17),
+					Elements: []ast.Expression{
+						&ast.IntegerExpression{
+							Token: token.New(token.Integer, 19, "1"),
+							Value: 1,
+						},
+						&ast.IntegerExpression{
+							Token: token.New(token.Integer, 21, "2"),
+							Value: 2,
+						},
+					},
+				},
+				Comment: &ast.StringExpression{
+					Token: token.New(token.String, 24, "a list of ints"),
+					Value: "a list of ints",
+				},
+			},
+		},
+	})
 }
 
 func TestParser_Parse_VectorOfStrings(t *testing.T) {

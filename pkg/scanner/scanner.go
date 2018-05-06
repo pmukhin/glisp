@@ -110,6 +110,7 @@ func (s *Scanner) scanString() token.Token {
 }
 
 func (s *Scanner) scanNumber() token.Token {
+	pos := s.offset // preserve offset
 	typ := token.Integer
 	str := make([]rune, 0, 8)
 
@@ -126,7 +127,7 @@ func (s *Scanner) scanNumber() token.Token {
 	}
 	s.un()
 
-	return token.New(typ, s.offset, string(str))
+	return token.New(typ, pos, string(str))
 }
 
 func (s *Scanner) peek() rune {

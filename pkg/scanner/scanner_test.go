@@ -4,12 +4,9 @@ import (
 	"testing"
 
 	"github.com/pmukhin/glisp/pkg/token"
+	"fmt"
+	"reflect"
 )
-
-type tokenAndLiteral struct {
-	typ token.Type
-	lit string
-}
 
 // test template
 func doTest(t *testing.T, input string, expected []token.Type) {
@@ -27,6 +24,10 @@ func doTest(t *testing.T, input string, expected []token.Type) {
 	if len(tokens) != len(expected) {
 		t.Errorf("wrong number of tokens returned: exp. %d vs %d given",
 			len(expected), len(tokens))
+		for _, tok := range tokens {
+			fmt.Println(tok)
+		}
+
 		return
 	}
 
@@ -43,8 +44,7 @@ func doTest(t *testing.T, input string, expected []token.Type) {
 	}
 }
 
-// test template with literals
-func doTestWithLiterals(t *testing.T, input string, expected []tokenAndLiteral) {
+func do(t *testing.T, input string, expected []token.Token) {
 	scn := New(input)
 	tokens := make([]token.Token, 0, 256)
 
@@ -56,45 +56,44 @@ func doTestWithLiterals(t *testing.T, input string, expected []tokenAndLiteral) 
 		tokens = append(tokens, tok)
 	}
 
-	for i := 0; i < len(tokens); i++ {
-		if tokens[i].Type != expected[i].typ {
-			t.Errorf(
-				"%d: expected token of type %v, got %v in pos %d",
-				i,
-				expected[i].typ,
-				tokens[i].Type,
-				tokens[i].Pos,
-			)
-		}
-		if tokens[i].Literal != expected[i].lit {
-			t.Errorf(
-				"%d: expected token of literal %v, got %v in pos %d",
-				i,
-				expected[i].lit,
-				tokens[i].Literal,
-				tokens[i].Pos,
-			)
-		}
+	if !reflect.DeepEqual(tokens, expected) {
+		t.Errorf("expected %v, got %v", expected, tokens)
 	}
 }
 
+func TestScanner_Next_ScanDefVar(t *testing.T) {
+	do(t, `(defvar int-list '(1 2 3) "a list of ints")`, []token.Token{
+		token.New(token.ParenOp, 0, "("),
+		token.New(token.Identifier, 1, "defvar"),
+		token.New(token.Identifier, 8, "int-list"),
+		token.New(token.SingleQuote, 17),
+		token.New(token.ParenOp, 18, "("),
+		token.New(token.Integer, 19, "1"),
+		token.New(token.Integer, 21, "2"),
+		token.New(token.Integer, 23, "3"),
+		token.New(token.ParenCl, 24, ")"),
+		token.New(token.String, 26, "a list of ints"),
+		token.New(token.ParenCl, 42, ")"),
+	})
+}
+
 func TestScanner_Next_4(t *testing.T) {
-	doTestWithLiterals(t, `(+ "test" "b")`, []tokenAndLiteral{
-		{token.ParenOp, "("},
-		{token.Identifier, "+"},
-		{token.String, "test"},
-		{token.String, "b"},
-		{token.ParenCl, ")"},
+	do(t, `(+ "test" "b")`, []token.Token{
+		token.New(token.ParenOp, 0, "("),
+		token.New(token.Identifier, 1, "+"),
+		token.New(token.String, 3, "test"),
+		token.New(token.String, 10, "b"),
+		token.New(token.ParenCl, 13, ")"),
 	})
 }
 
 func TestScanner_Next_3(t *testing.T) {
-	doTestWithLiterals(t, `(+ 5.545 24)`, []tokenAndLiteral{
-		{token.ParenOp, "("},
-		{token.Identifier, "+"},
-		{token.Float, "5.545"},
-		{token.Integer, "24"},
-		{token.ParenCl, ")"},
+	do(t, `(+ 5.545 24)`, []token.Token{
+		token.New(token.ParenOp, 0, "("),
+		token.New(token.Identifier, 1, "+"),
+		token.New(token.Float, 3, "5.545"),
+		token.New(token.Integer, 9, "24"),
+		token.New(token.ParenCl, 11, ")"),
 	})
 }
 
@@ -143,63 +142,6 @@ func TestScanner_Next_Vector(t *testing.T) {
 		token.Integer,
 		token.Integer,
 		token.BracketCl,
-		token.ParenCl,
-	})
-}
-
-func TestScanner_Next_1(t *testing.T) {
-	input := `
-(defun fib (n) 
-    (case n 
-        (< 2 n)
-        (+ (fib (- n 1)) (fib (- n 2)))))
-`
-	doTest(t, input, []token.Type{
-		// (defun fib (n)
-		token.ParenOp,
-		token.Identifier,
-		token.Identifier,
-		token.ParenOp,
-		token.Identifier,
-		token.ParenCl,
-		// (case n
-		token.ParenOp,
-		token.Identifier,
-		token.Identifier,
-		// (< 2 n)
-		token.ParenOp,
-		token.Identifier,
-		token.Integer,
-		token.Identifier,
-		token.ParenCl,
-		// (+ (fib (- n 1)) (fib (- n 2)) )
-		token.ParenOp,
-		// function identifier
-		token.Identifier,
-		// first arg
-		// (fib (- n 1))
-		token.ParenOp,
-		token.Identifier,
-		token.ParenOp,
-		token.Identifier,
-		token.Identifier,
-		token.Integer,
-		token.ParenCl,
-		token.ParenCl,
-		// second arg
-		// (fib (- n 2))
-		token.ParenOp,
-		token.Identifier,
-		token.ParenOp,
-		token.Identifier,
-		token.Identifier,
-		token.Integer,
-		token.ParenCl,
-		token.ParenCl,
-		// closing
-		token.ParenCl,
-		// ))
-		token.ParenCl,
 		token.ParenCl,
 	})
 }

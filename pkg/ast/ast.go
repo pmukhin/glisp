@@ -21,6 +21,7 @@ const (
 	RuneExpr
 	ListExpr
 	VectorExpr
+	DefVarExpr
 )
 
 var type2str = map[Type]string{
@@ -34,6 +35,7 @@ var type2str = map[Type]string{
 	RuneExpr:    "RuneExpr",
 	ListExpr:    "ListExpr",
 	VectorExpr:  "VectorExpr",
+	DefVarExpr:  "DefVarExpr",
 }
 
 func (t Type) String() string {
@@ -270,6 +272,29 @@ func (ve VectorExpression) String() string {
 
 // expressionNode ...
 func (ve VectorExpression) expressionNode() {}
+
+// DefVarExpression ...
+type DefVarExpression struct {
+	Token   token.Token
+	Name    *IdentifierExpression
+	Value   Expression
+	Comment Expression
+}
+
+// Pos ...
+func (dve DefVarExpression) Pos() int { return dve.Token.Pos }
+
+// Type ...
+func (dve DefVarExpression) Type() Type { return DefVarExpr }
+
+// String ...
+func (dve DefVarExpression) String() string {
+	return fmt.Sprintf("(defvar %s %s %s)", dve.Name.String(),
+		dve.Value.String(), dve.Comment.String())
+}
+
+// expressionNode ...
+func (dve DefVarExpression) expressionNode() {}
 
 // String ...
 func (p Program) String() string {
