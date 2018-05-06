@@ -10,6 +10,7 @@ import (
 	"github.com/pmukhin/glisp/pkg/interpreter"
 	"github.com/pmukhin/glisp/pkg/parser"
 	"github.com/pmukhin/glisp/pkg/scanner"
+	"github.com/pmukhin/glisp/pkg/object"
 )
 
 func main() {
@@ -49,7 +50,8 @@ func runFile() {
 	if err != nil {
 		exit(err.Error())
 	}
-	_, err = interpreter.Eval(prg)
+	ctx := object.NewContext()
+	_, err = interpreter.Eval(prg, ctx)
 	if err != nil {
 		exit(err.Error())
 	}

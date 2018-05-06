@@ -9,10 +9,12 @@ import (
 	"github.com/pmukhin/glisp/pkg/interpreter"
 	"github.com/pmukhin/glisp/pkg/parser"
 	"github.com/pmukhin/glisp/pkg/scanner"
+	"github.com/pmukhin/glisp/pkg/object"
 )
 
 func Main() {
 	reader := bufio.NewReader(os.Stdin)
+	ctx := object.NewContext()
 
 	for {
 		fmt.Printf("glisp> ")
@@ -31,7 +33,7 @@ func Main() {
 			fmt.Println(err.Error())
 			continue
 		}
-		res, err := interpreter.Eval(prg)
+		res, err := interpreter.Eval(prg, ctx)
 		if err != nil {
 			fmt.Println(err.Error())
 			continue
