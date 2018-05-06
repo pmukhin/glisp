@@ -40,13 +40,28 @@ func TestEval_DefVar(t *testing.T) {
 		},
 	}
 
-	res, err := Eval(program)
+	ctx := object.NewContext()
+	res, err := Eval(program, ctx)
 	if err != nil {
 		t.Error(err)
 		return
 	}
+	if res != nil {
+		t.Error("defvar should return nil")
+	}
+	if ob, err := ctx.Get("int-list"); err != nil {
+		t.Error(err)
+	} else {
+		givenListValue, ok := ob.(*object.List)
+		if !ok {
+			t.Errorf("expected int-list to be equal to List<1, 2> but type is %s", ob.Type())
+		}
+		expectedListValue := &object.List{Elements: []object.Object{&object.Int{Value: 1}, &object.Int{Value: 2}}}
 
-	panic(res)
+		if !reflect.DeepEqual(givenListValue, expectedListValue) {
+			t.Errorf("expected %v, got %v", expectedListValue, givenListValue)
+		}
+	}
 }
 
 func TestEval_Vector(t *testing.T) {
@@ -74,7 +89,7 @@ func TestEval_Vector(t *testing.T) {
 		},
 	}
 
-	res, err := Eval(program)
+	res, err := Eval(program, object.NewContext())
 	if err != nil {
 		t.Error(err)
 		return
@@ -124,7 +139,7 @@ func TestEval_ListAppend(t *testing.T) {
 		},
 	}
 
-	res, err := Eval(program)
+	res, err := Eval(program, object.NewContext())
 	if err != nil {
 		t.Error(err)
 	}
@@ -164,7 +179,7 @@ func TestEval_ArithmeticFunction(t *testing.T) {
 		},
 	}
 
-	res, err := Eval(program)
+	res, err := Eval(program, object.NewContext())
 	if err != nil {
 		t.Error(err)
 	}
