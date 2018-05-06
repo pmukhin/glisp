@@ -8,6 +8,32 @@ import (
 	"reflect"
 )
 
+func TestEval_GetVar(t *testing.T) {
+	program := &ast.Program{
+		Statements: []ast.Statement{
+			&ast.ExpressionStatement{
+				Expression: &ast.IdentifierExpression{
+					Token: token.New(token.Identifier, 0, "int-var"),
+					Value: "int-var",
+				},
+			},
+		},
+	}
+	expVal := &object.Int{5}
+	ctx := object.NewContext()
+	ctx.Set("int-var", expVal)
+
+	res, err := Eval(program, ctx)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	iVal := res.(*object.Int)
+	if iVal != expVal {
+		t.Errorf("different value returned")
+	}
+}
+
 func TestEval_DefVar(t *testing.T) {
 	program := &ast.Program{
 		Statements: []ast.Statement{

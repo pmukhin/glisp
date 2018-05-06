@@ -29,7 +29,35 @@ func do(t *testing.T, s string, e []ast.Statement) {
 	}
 }
 
-func TestParser_Parse_MacroDefVar(t *testing.T) {
+func TestParser_Parse_MacroDefVar_WithOutComment(t *testing.T) {
+	do(t, `(defvar int-list '(1 2))`, []ast.Statement{
+		&ast.ExpressionStatement{
+			Expression: &ast.DefVarExpression{
+				Token: token.New(token.Identifier, 1, "defvar"),
+				Name: &ast.IdentifierExpression{
+					Token: token.New(token.Identifier, 8, "int-list"),
+					Value: "int-list",
+				},
+				Value: &ast.ListExpression{
+					Token: token.New(token.SingleQuote, 17),
+					Elements: []ast.Expression{
+						&ast.IntegerExpression{
+							Token: token.New(token.Integer, 19, "1"),
+							Value: 1,
+						},
+						&ast.IntegerExpression{
+							Token: token.New(token.Integer, 21, "2"),
+							Value: 2,
+						},
+					},
+				},
+				Comment: nil,
+			},
+		},
+	})
+}
+
+func TestParser_Parse_MacroDefVar_WithComment(t *testing.T) {
 	do(t, `(defvar int-list '(1 2) "a list of ints")`, []ast.Statement{
 		&ast.ExpressionStatement{
 			Expression: &ast.DefVarExpression{

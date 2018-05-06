@@ -25,6 +25,13 @@ func init() {
 	typeToEvaluatorFunc[ast.VectorExpr] = evalVector
 	typeToEvaluatorFunc[ast.DefVarExpr] = evalDefVar
 	typeToEvaluatorFunc[ast.Expr] = evalExpr
+	typeToEvaluatorFunc[ast.IdentExpr] = evalName
+}
+
+// evalName ...
+func evalName(node ast.Node, ctx object.Context) (object.Object, error) {
+	id := node.(*ast.IdentifierExpression)
+	return ctx.Get(id.Value)
 }
 
 // evalDefVar defines a variable in a given context

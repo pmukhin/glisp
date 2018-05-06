@@ -102,7 +102,11 @@ func (p *Parser) parseDefVar(tok token.Token) ast.Expression {
 	dve := &ast.DefVarExpression{Token: tok}
 	dve.Name = p.parseIdentifier().(*ast.IdentifierExpression)
 	dve.Value = p.parseExpression()
-	dve.Comment = p.parseString()
+
+	// have comment?
+	if p.currToken.Type == token.String {
+		dve.Comment = p.parseString()
+	}
 
 	p.assert(token.ParenCl)
 	p.next() // eat `)`
@@ -151,7 +155,7 @@ func (p *Parser) parseExpressionList() []ast.Expression {
 
 func (p *Parser) parseFunctionCall() ast.Expression {
 	prToken := p.currToken // if it's a fun call
-	p.next() // eat `(`
+	p.next()               // eat `(`
 
 	idToken := p.currToken // if it's a macro
 	callee := p.parseIdentifier()
